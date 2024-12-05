@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Embeddable
 public class CandidateSkillId implements Serializable {
-    private static final long serialVersionUID = -4562085791682942643L;
+    private static final long serialVersionUID = 4137378420600739770L;
     @Column(name = "can_id", nullable = false)
     private Long canId;
 

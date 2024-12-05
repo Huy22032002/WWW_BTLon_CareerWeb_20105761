@@ -21,8 +21,9 @@ public class CandidateSkill {
     @Column(name = "more_infos", length = 1000)
     private String moreInfos;
 
+    @Lob
     @Column(name = "skill_level", nullable = false)
-    private Byte skillLevel;
+    private String skillLevel;
 
     public CandidateSkillId getId() {
         return id;
@@ -56,11 +57,11 @@ public class CandidateSkill {
         this.moreInfos = moreInfos;
     }
 
-    public Byte getSkillLevel() {
+    public String getSkillLevel() {
         return skillLevel;
     }
 
-    public void setSkillLevel(Byte skillLevel) {
+    public void setSkillLevel(String skillLevel) {
         this.skillLevel = skillLevel;
     }
 

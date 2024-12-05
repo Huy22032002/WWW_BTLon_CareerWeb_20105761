@@ -20,13 +20,15 @@ public class Experience {
     @Column(name = "role", length = 400)
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "company", nullable = false)
-    private Company company;
+    @Column(name = "company_name", nullable = false, length = 60)
+    private String companyName;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "can_id", nullable = false)
     private Candidate can;
+
+    @Column(name = "work_description", nullable = false, length = 60)
+    private String workDescription;
 
     public Long getId() {
         return id;
@@ -60,12 +62,12 @@ public class Experience {
         this.role = role;
     }
 
-    public Company getCompany() {
-        return company;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public Candidate getCan() {
@@ -74,6 +76,14 @@ public class Experience {
 
     public void setCan(Candidate can) {
         this.can = can;
+    }
+
+    public String getWorkDescription() {
+        return workDescription;
+    }
+
+    public void setWorkDescription(String workDescription) {
+        this.workDescription = workDescription;
     }
 
 }

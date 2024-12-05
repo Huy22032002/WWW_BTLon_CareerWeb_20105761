@@ -5,4 +5,4 @@ import fit.vn.edu.iuh.models.JobSkillId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JobSkillRepository extends JpaRepository<JobSkill, JobSkillId> {
-}
+  }

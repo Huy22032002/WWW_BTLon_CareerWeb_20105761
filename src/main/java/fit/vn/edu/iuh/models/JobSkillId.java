@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Embeddable
 public class JobSkillId implements Serializable {
-    private static final long serialVersionUID = 1446809725688067137L;
+    private static final long serialVersionUID = -4345524839558893992L;
     @Column(name = "job_id", nullable = false)
     private Long jobId;
 
