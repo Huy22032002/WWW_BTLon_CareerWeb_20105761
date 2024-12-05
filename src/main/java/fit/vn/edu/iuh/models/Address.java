@@ -1,7 +1,7 @@
 package fit.vn.edu.iuh.models;
 
+import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "address")
 public class Address {
@@ -17,7 +17,7 @@ public class Address {
     private String city;
 
     @Column(name = "country")
-    private Short country;
+    private CountryCode country;
 
     @Column(name = "number", length = 20)
     private String number;
@@ -49,11 +49,11 @@ public class Address {
         this.city = city;
     }
 
-    public Short getCountry() {
+    public CountryCode getCountry() {
         return country;
     }
 
-    public void setCountry(Short country) {
+    public void setCountry(CountryCode country) {
         this.country = country;
     }
 
