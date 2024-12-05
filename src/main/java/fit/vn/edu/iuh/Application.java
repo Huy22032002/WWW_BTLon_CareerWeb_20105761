@@ -1,4 +1,4 @@
-package fit.vn.edu.iuh._20105761_nguyenduchuy_careerweb;
+package fit.vn.edu.iuh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
