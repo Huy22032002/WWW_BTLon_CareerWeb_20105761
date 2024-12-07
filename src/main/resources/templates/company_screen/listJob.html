@@ -23,19 +23,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Software Engineer</td>
-            <td>XYZ Tech</td>
-            <td>Full-time</td>
-            <td>$80,000 - $100,000</td>
+        <tr th:each="job : ${lstJob}">
+            <td th:text="${job.id}"></td>
+            <td th:text="${job.jobName}"></td>
+            <td th:text="${job.company}"> </td>
+            <td th:text="${job.jobType}"></td>
+            <td th:text="${job.salaryRangeMax}"></td>
             <td>
                 <button class="btn btn-info btn-sm">View</button>
                 <button class="btn btn-warning btn-sm">Edit</button>
                 <button class="btn btn-danger btn-sm">Delete</button>
             </td>
         </tr>
-        <!-- Add more rows as needed -->
         </tbody>
     </table>
 </div>

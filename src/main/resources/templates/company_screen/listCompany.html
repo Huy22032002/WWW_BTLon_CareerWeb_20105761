@@ -22,19 +22,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>ABC Corp</td>
-      <td>contact@abccorp.com</td>
-      <td>+987654321</td>
-      <td><a href="#">www.abccorp.com</a></td>
+    <tr th:each="company : ${lstCompany}">
+      <td th:text="${company.id}" ></td>
+      <td th:text="${company.compName}"></td>
+      <td th:text="${company.getEmail()}"></td>
+      <td th:text="${company.phone}"></td>
+      <td th:text="${company.webUrl}"></td>
       <td>
         <button class="btn btn-info btn-sm">View</button>
         <button class="btn btn-warning btn-sm">Edit</button>
         <button class="btn btn-danger btn-sm">Delete</button>
       </td>
     </tr>
-    <!-- Add more rows as needed -->
     </tbody>
   </table>
 </div>
