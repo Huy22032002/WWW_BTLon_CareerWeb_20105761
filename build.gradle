@@ -36,6 +36,7 @@ dependencies {
     implementation 'com.neovisionaries:nv-i18n:1.29'
     //For database REST
     implementation 'org.springframework.data:spring-data-rest-core:4.1.4'
+    implementation 'org.webjars:bootstrap:5.3.0'
 }
 
 tasks.named('test') {
