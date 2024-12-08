@@ -16,7 +16,6 @@
       background-color: #007BFF;
       color: #fff;
     }
-    /* Flexbox setup for companies section */
     .companies-container {
       display: flex;
       overflow-x: auto;
@@ -52,33 +51,29 @@
   <!-- Companies Section -->
   <section class="mb-5">
     <h2 class="mb-3">Top Companies</h2>
-    <div class="companies-container" th:each="company : ${lstCompany}">
-      <!-- Sample Company Card -->
-      <div class="card company-card">
+    <div class="companies-container">
+      <div class="card company-card" th:each="company : ${lstCompany}">
         <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Company Logo">
         <div class="card-body">
           <h5 class="card-title" th:text="${company.compName}"></h5>
-          <p class="card-text" th:text="${company.email}"></p>
-          <a href="" class="btn btn-primary btn-sm">View Details</a>
+          <p class="card-text" style="color: red" th:text="${company.email}"></p>
+          <a th:href="@{'/detailCompany?companyId=' + ${company.id}}" class="btn btn-primary btn-sm">View Details</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Jobs Section -->
   <section>
     <h2 class="mb-3">Available Jobs</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <!-- Sample Job Card -->
+    <div class="row row-cols-1 row-cols-md-3 g-4" th:each="job:${lstJob}">
       <div class="col">
         <div class="card job-card">
           <div class="card-body">
-            <h5 class="card-title">Job Title</h5>
-            <p class="card-text">
-              <strong>Company:</strong> Company Name <br>
-              <strong>Type:</strong> Full-time <br>
-              <strong>Salary:</strong> $60,000 - $80,000
-            </p>
-            <a href="/job-details" class="btn btn-success btn-sm">Apply Now</a>
+            <h5 class="card-title" th:text="${job.jobName}">Job Title</h5>
+            <p class="card-text" th:text="${job.company}"></p>
+            <p class="card-text" style="color: red" th:text="${job.salaryRangeMax}"></p>
+            <a th:href="@{'/jobDetail?id=' + ${job.id}}" class="btn btn-success btn-sm">Apply Now</a>
           </div>
         </div>
       </div>

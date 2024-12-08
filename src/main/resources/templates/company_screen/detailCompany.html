@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Details</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .review-card, .job-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .review-card:hover, .job-card:hover {
+            transform: scale(1.05);
+            color: #007BFF;
+        }
+        .review-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 15px;
+            padding-top: 10px;
+        }
+        .review-card {
+            min-width: 250px;
+            flex-shrink: 0;
+        }
+        .job-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 15px;
+            padding-top: 10px;
+        }
+        .job-card {
+            min-width: 250px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h1 id="company-name" th:text="${company.compName}">Company Name</h1>
+        <p class="text-muted" id="industry" th:text="Industry + ': ' + ${company.industry}"></p>
+    </div>
+    <!-- Basic Information -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Basic Information</h5>
+            <p th:text="Email + ': ' +${company.email}"><strong>Email:</strong> <span id="email"></span></p>
+            <p th:text="Phone + ': ' + ${company.phone}"><strong>Phone:</strong> <span id="phone"></span></p>
+            <p th:text="Website + ': ' +${company.webUrl}"><strong>Website:</strong> <a href="#" id="web-url"></a></p>
+        </div>
+    </div>
+    <!-- Address -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Address</h5>
+            <p id="address" th:text="${company.getAddress().getNumber()} + ', '
+                                    + ${company.getAddress().getStreet()}+ ', '
+                                    + ${company.getAddress().getCity()}">
+            </p>
+            <p id="zipcode" th:text="Zipcode + ': ' +${company.getAddress().getZipcode()}"></p>
+        </div>
+    </div>
+    <!-- List Job-->
+    <section class="mb-5">
+        <h2 class="mb-3">List Job</h2>
+        <div class="job-container">
+            <div class="card job-card" th:each="job : ${lstJob}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${job.jobName}"></h5>
+                    <p class="card-text" style="color: gray" th:text="${job.company.compName}"></p>
+                    <p class="card-text" style="color: red" th:text="'$' + ${job.salaryRangeMin} + '-' + ${job.salaryRangeMax}
+                                                           +' /month'"
+                    ></p>
+                    <p class="card-text" >Skill required</p>
+                    <ul>
+                        <!-- Duyệt qua danh sách JobSkill và lấy thông tin từ Skill -->
+                        <li th:each="jobSkill : ${lstMapJobSkill[job.id]}" th:text="${jobSkill.skill.skillName}"></li>
+                    </ul>
+                    <a th:href="@{'/jobDetail?id=' + ${job.id}}" class="btn btn-success btn-sm">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Additional Information -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">About the Company</h5>
+            <p id="about" th:text="${company.about}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <p><strong>Established Year:</strong> <span id="established-year" th:text="${company.establishedYear}"></span></p>
+        </div>
+    </div>
+
+    <section class="mb-5">
+        <h2 class="mb-3">Reviews From Candidates</h2>
+        <div class="review-container">
+            <div class="card review-card" th:each="review : ${lstReview}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${review.getCan().getFullName()} + ' (' + ${review.getReviewDate()} +')'"></h5>
+                    <p class="card-text" style="color: gray" th:text="${review.comments}"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

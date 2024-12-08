@@ -15,6 +15,6 @@ public class JobController {
     @GetMapping("/listJob")
     public String listJob(Model model) {
         model.addAttribute("lstJob", jobService.findAll());
-        return "company_screen/listJob";
+        return "job_screen/listJob";
     }
 }
