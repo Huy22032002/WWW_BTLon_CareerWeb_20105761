@@ -6,11 +6,49 @@
     <title>Chi Tiết Công Việc</title>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-apply {
+            background-color: #22c55e;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-apply:hover {
+            background-color: #16a34a;
+        }
+
+        .info-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .skill-list li {
+            background-color: #f3f4f6;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50">
 
 <!-- Header -->
-<header class="bg-teal-600 text-white py-4 shadow-md">
+<header class="bg-teal-600 text-white py-4 shadow-lg">
     <div class="container mx-auto flex justify-between items-center px-6">
         <a href="/" class="text-2xl font-bold">JobFinder</a>
         <nav>
@@ -25,37 +63,37 @@
 <main class="container mx-auto px-6 py-10">
     <div class="bg-white rounded-lg shadow-lg p-8">
         <!-- Job Title -->
-        <div class="mb-6 text-center">
-            <h1 class="text-4xl font-bold text-teal-600" th:text="${job.jobName}">Tên Công Việc</h1>
+        <div class="mb-8 text-center">
+            <h1 class="text-4xl font-extrabold text-teal-700" th:text="${job.jobName}">Tên Công Việc</h1>
             <p class="text-gray-500 mt-2" th:text="'Đăng bởi: ' + ${company.compName}">Tên Công Ty</p>
         </div>
 
         <!-- Job Details -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Job Description -->
-            <div>
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Mô Tả Công Việc</h2>
+            <div class="info-card">
+                <h2 class="text-gray-800 mb-4">Mô Tả Công Việc</h2>
                 <p class="text-gray-600 leading-relaxed" th:text="${job.jobDesc}">Mô tả công việc đầy đủ...</p>
             </div>
 
             <!-- Company Details -->
-            <div>
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Thông Tin Công Ty</h2>
+            <div class="info-card">
+                <h2 class="text-gray-800 mb-4">Thông Tin Công Ty</h2>
                 <ul class="text-gray-600 space-y-2">
                     <li>
-                        <span class="font-semibold">Công Ty:</span>
+                        <strong class="text-gray-800">Công Ty:</strong>
                         <span th:text="${company.compName}">Tên công ty</span>
                     </li>
                     <li>
-                        <span class="font-semibold">Email:</span>
+                        <strong class="text-gray-800">Email:</strong>
                         <span th:text="${company.email}">Email công ty</span>
                     </li>
                     <li>
-                        <span class="font-semibold">Số Điện Thoại:</span>
+                        <strong class="text-gray-800">Số Điện Thoại:</strong>
                         <span th:text="${company.phone}">Số điện thoại công ty</span>
                     </li>
                     <li>
-                        <span class="font-semibold">Địa Chỉ:</span>
+                        <strong class="text-gray-800">Địa Chỉ:</strong>
                         <span th:text="${company.address.street} + ', ' + ${company.address.city}">Địa chỉ công ty</span>
                     </li>
                 </ul>
@@ -63,9 +101,9 @@
         </div>
 
         <!-- Skills -->
-        <div class="mt-8">
+        <div class="mt-10">
             <h2 class="text-2xl font-semibold text-gray-700 mb-4">Kỹ Năng Yêu Cầu</h2>
-            <ul class="list-disc list-inside text-gray-600">
+            <ul class="skill-list list-disc list-inside">
                 <li th:each="jobSkill : ${jobSkills}" th:text="${jobSkill.skill.skillName}">Tên kỹ năng</li>
             </ul>
         </div>
@@ -74,7 +112,7 @@
         <div class="mt-10 text-center">
             <form th:action="@{/candidates/jobs/{jobId}/apply(jobId=${job.id})}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <button type="submit" >
+                <button type="submit" class="btn-apply">
                     Ứng Tuyển Ngay
                 </button>
             </form>
@@ -85,7 +123,7 @@
 <!-- Footer -->
 <footer class="bg-gray-800 text-white py-6">
     <div class="container mx-auto text-center">
-        <p class="text-sm">© 2024 JobFinder. Tất cả các quyền được bảo lưu.</p>
+        <p class="text-sm">© Nguyễn Đức Huy - 20105761.</p>
     </div>
 </footer>
 

@@ -7,29 +7,30 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
         }
 
         .sidebar {
-            width: 250px;
+            width: 280px;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #007bff;
+            background-color: #1e1e2f;
             color: white;
-            padding-top: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar .logo {
-            text-align: center;
             font-size: 24px;
-            font-weight: bold;
-            padding: 10px;
-            border-bottom: 1px solid #444;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
         }
 
         .sidebar ul {
@@ -39,55 +40,84 @@
         }
 
         .sidebar ul li {
-            padding: 10px 20px;
-            border-bottom: 1px solid #444;
+            margin-bottom: 15px;
         }
 
         .sidebar ul li a {
-            text-decoration: none;
-            color: white;
             display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar ul li a:hover {
-            background-color: #0056b3;
-            border-radius: 5px;
+            background-color: #007bff;
         }
 
         .content {
-            margin-left: 250px;
-            padding: 20px;
+            margin-left: 300px;
+            padding: 30px;
         }
 
         .content h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 26px;
+            color: #1e1e2f;
+            margin-bottom: 30px;
         }
 
         .card {
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card-header {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
             color: #007bff;
+            background-color: #f8f9fa;
+            border-bottom: none;
         }
 
         .btn-dashboard {
             background-color: #28a745;
             color: white;
-            border-radius: 5px;
+            font-weight: 600;
             padding: 10px 20px;
-            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .btn-dashboard:hover {
             background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -99,45 +129,51 @@
     </div>
     <ul>
         <li><a href="/candidates/profile">Hồ sơ cá nhân</a></li>
-        <li><a href="/candidates/applied-jobs">Danh sách công việc đã nộp</a></li>
-        <li><a href="/candidates/home">Trang Chủ</a></li>
-        <li><a href="/logout" class="text-danger">Đăng xuất</a></li>
+        <li><a href="/candidates/applied-jobs">Công việc đã nộp</a></li>
+        <li><a href="/candidates/suggestJob">Đề xuất công việc</a></li>
+        <li><a href="/candidates/home">Trang chủ</a></li>
+        <li><form th:action="@{/logout}" method="post">
+            <button type="submit" class="dropdown-item">Đăng Xuất</button>
+        </form></li>
     </ul>
 </div>
 
 <div class="content">
-    <h1>Candidate Dashboard</h1>
+    <h1>Xin chào, <span th:text="${candidate.fullName}">Ứng viên</span></h1>
 
-    <!-- Dashboard Cards -->
     <div class="row">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Hồ sơ cá nhân</div>
-                <p>Chỉnh sửa thông tin cá nhân và cập nhật hồ sơ ứng tuyển của bạn.</p>
-                <a href="/candidates/profile" class="btn btn-dashboard">Chỉnh sửa hồ sơ</a>
+                <div class="card-body">
+                    <p>Chỉnh sửa thông tin và cập nhật hồ sơ ứng tuyển của bạn.</p>
+                    <a href="/candidates/profile" class="btn-dashboard">Chỉnh sửa</a>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">Danh sách công việc đã nộp</div>
-                <p>Quản lý danh sách công việc mà bạn đã ứng tuyển.</p>
-                <a href="/candidates/applied-jobs" class="btn btn-dashboard">Xem công việc đã nộp</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Đăng xuất</div>
-                <a href="/logout" class="btn btn-dashboard">Đăng xuất</a>
+                <div class="card-header">Công việc đã nộp</div>
+                <div class="card-body">
+                    <p>Quản lý danh sách công việc đã nộp.</p>
+                    <a href="/candidates/applied-jobs" class="btn-dashboard">Xem chi tiết</a>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Đề xuất công việc</div>
-                <p>Xem danh sách công việc phù hợp cho bạn.</p>
-                <a href="/candidates/suggestJob" class="btn btn-dashboard">Xem Danh Sách</a>
+                <div class="card-body">
+                    <p>Xem các công việc phù hợp với bạn.</p>
+                    <a href="/candidates/suggestJob" class="btn-dashboard">Khám phá</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="footer">
+    <p>©Được thiết kế bởi <a href="#">Nguyễn Đức Huy - 20105761</a>.</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

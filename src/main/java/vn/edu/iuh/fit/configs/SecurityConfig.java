@@ -36,11 +36,11 @@ public class SecurityConfig {
                         .requestMatchers("/jobs", "/jobs/**").permitAll()
                         .requestMatchers("/apply/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/recruiter/**").hasRole("RECRUITER")
-                        .requestMatchers("/candidates/**").hasRole("CANDIDATE")
-                        .requestMatchers("/dashboard/jobs/new").permitAll()
-                        .requestMatchers("/candidates/jobs/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/recruiter/**").hasAnyRole("RECRUITER", "ADMIN")
+                        .requestMatchers("/candidates/**").hasAnyRole("CANDIDATE", "ADMIN")
+                        .requestMatchers("/dashboard/jobs/new").hasAnyRole("RECRUITER", "ADMIN")
+                        .requestMatchers("/candidates/jobs/**").hasAnyRole("CANDIDATE", "ADMIN")
+                        .anyRequest().hasRole("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -56,7 +56,7 @@ public class SecurityConfig {
                             System.out.println("Saved accountId to session: " + account.getId());
 
                             // Chuyển hướng dựa trên trạng thái tài khoản
-                            if (account.getRole() != null && account.getRole().getRoleName().equals("ROLE_CANDIDATE")) {
+                            if (account.getRole() != null && account.getRole().getRoleName().equals("ROLE_CANDIDATE") ) {
                                 if (account.getCandidate() == null) {
                                     response.sendRedirect("/candidates/register/full-info");
                                 } else {
