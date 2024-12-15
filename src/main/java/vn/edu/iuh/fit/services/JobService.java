@@ -16,13 +16,6 @@ public class JobService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    public List<Job> findJobBySkillId(Long skillId) {
-        return jobRepository.findJobsBySkillId(skillId);
-    }
-    public List<Job> findAllJobs() {
-        return jobRepository.findAll();
-    }
-
     public Job saveJob(Job job) {
         return jobRepository.save(job);
     }

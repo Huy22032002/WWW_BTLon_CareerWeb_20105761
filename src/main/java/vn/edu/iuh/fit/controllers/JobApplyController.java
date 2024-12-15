@@ -2,101 +2,67 @@ package vn.edu.iuh.fit.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.edu.iuh.fit.enums.SkillLevelType;
 import vn.edu.iuh.fit.enums.SkillType;
 import vn.edu.iuh.fit.models.*;
 import vn.edu.iuh.fit.services.*;
-import vn.edu.iuh.fit.models.*;
-import vn.edu.iuh.fit.services.*;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/recruiter")
-public class RecruiterController {
+public class JobApplyController {
 
     @Autowired
     private JobService jobService;
-    @Autowired
-    private EmailLogService emailLogService;
     @Autowired
     private AccountService accountService;
     @Autowired
     private SkillService skillService;
     @Autowired
     private JobSkillService jobSkillService;
-    // Trang quản lý công việc
+
     @GetMapping("dashboard/jobs")
-    public String listJobs(Model model, Principal principal) {
+    public String lstJobOfRecruiter(Model model, Principal principal) {
         String recruiterUsername = principal.getName();
-        List<Job> jobs = jobService.getJobsByRecruiterUsername(recruiterUsername);
-        model.addAttribute("jobs", jobs);
-        return "recruiters/jobs";
+        List<Job> lstJob = jobService.getJobsByRecruiterUsername(recruiterUsername);
+        model.addAttribute("jobs", lstJob);
+        return "recruiter-screen/listJob";
     }
     @GetMapping("dashboard/jobs/{jobId}/candidates")
-    public String listCandidates(@PathVariable Long jobId, Model model, Principal principal) {
+    public String listCandidateOfJob(@PathVariable Long jobId, Model model) {
         // Lấy thông tin công việc
         Optional<Job> job = jobService.findJobById(jobId);
 
-        if (job.isEmpty()) {
-            throw new IllegalArgumentException("Công việc không tồn tại");
-        }
-
         // Lấy danh sách ứng viên cho công việc
-        List<Candidate> candidates = jobService.getCandidatesByJobId(jobId);
+        List<Candidate> lstCandidate = jobService.getCandidatesByJobId(jobId);
 
         // Thêm dữ liệu vào model
-        model.addAttribute("job", job.get());
-        model.addAttribute("candidates", candidates);
+        model.addAttribute("job", job);
+        model.addAttribute("candidates", lstCandidate);
 
-        return "recruiters/job-candidates";
+        return "recruiter-screen/listCandidateOfJob";
     }
 
     @GetMapping("/dashboard")
-    public String viewDashboard(Model model, Principal principal) {
+    public String dashboard(Model model, Principal principal) {
         String recruiterUsername = principal.getName();
-//        Company company = accountService.getCompanyByRecruiterUsername(recruiterUsername); // Lấy thông tin công ty
-        List<Job> jobs = jobService.getJobsByRecruiterUsername(recruiterUsername); // Lấy danh sách công việc
+        List<Job> lstJob = jobService.getJobsByRecruiterUsername(recruiterUsername); // Lấy danh sách công việc
 
         // Đưa dữ liệu vào model
         model.addAttribute("recruiterUsername", recruiterUsername);
-//        model.addAttribute("company", company);
-        model.addAttribute("jobs", jobs);
+        model.addAttribute("jobs", lstJob);
 
-        return "recruiters/dashboard";
+        return "recruiter-screen/dashboard";
     }
-    @GetMapping("/dashboard/jobs/{jobId}/candidates/sent-emails")
-    public String viewSentEmails(@PathVariable Long jobId, Model model) {
-        try {
-            // Lấy danh sách email đã gửi từ cơ sở dữ liệu
-            List<EmailLog> sentEmails = emailLogService.getEmailLogsByJobId(jobId);
 
-            if (sentEmails.isEmpty()) {
-                model.addAttribute("error", "Không có ứng viên nào đã được gửi email cho công việc này.");
-            } else {
-                model.addAttribute("sentEmails", sentEmails);
-            }
-
-            model.addAttribute("jobId", jobId);
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi truy xuất danh sách email: " + e.getMessage());
-        }
-
-        return "recruiters/sentEmails";
-    }
-    // Lưu công việc mới
     @GetMapping("/dashboard/jobs/new")
-    public String showJobForm(Model model, Principal principal) {
+    public String formAddJob(Model model, Principal principal) {
         String username = principal.getName();
         Optional<Account> account = accountService.findByUsername(username);
 
@@ -127,11 +93,11 @@ public class RecruiterController {
                 SkillType.TECHNICAL_SKILL
         ));
 
-        return "recruiters/new-job";
+        return "recruiter-screen/addJob";
     }
 
         @PostMapping("/dashboard/jobs/new")
-    public String saveJob(
+    public String addJob(
             Principal principal,
             @ModelAttribute Job job,
             @RequestParam("skillName[]") List<String> skillNames,
@@ -191,7 +157,7 @@ public class RecruiterController {
 
         List<JobSkill> jobSkills = jobSkillService.findSkillsByJobId(jobId);
         model.addAttribute("jobSkills", jobSkills);
-        return "recruiters/job-skills";
+        return "recruiter-screen/skillsJob";
     }
 
 }

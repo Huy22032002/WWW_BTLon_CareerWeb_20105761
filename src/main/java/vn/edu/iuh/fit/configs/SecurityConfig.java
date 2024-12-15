@@ -15,16 +15,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import vn.edu.iuh.fit.repositories.AccountRepository;
-import vn.edu.iuh.fit.services.UserService;
+import vn.edu.iuh.fit.services.UserDetailService;
 
 @Configuration
 public class SecurityConfig {
     @Autowired
     private AccountRepository accountRepository;
-    private final UserService userService;
+    private final UserDetailService userDetailService;
 
-    public SecurityConfig(UserService userService) {
-        this.userService = userService;
+    public SecurityConfig(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
     }
 
     @Bean
@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/candidates/**").hasAnyRole("CANDIDATE", "ADMIN")
                         .requestMatchers("/dashboard/jobs/new").hasAnyRole("RECRUITER", "ADMIN")
                         .requestMatchers("/candidates/jobs/**").hasAnyRole("CANDIDATE", "ADMIN")
+
                         .anyRequest().hasRole("ADMIN")
                 )
                 .formLogin(form -> form
@@ -86,7 +87,7 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(customizer -> customizer
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.sendRedirect("/403");
+                            response.sendRedirect("/login");
                         })
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.sendRedirect("/login");
@@ -106,7 +107,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userService.findByUsername(username)
+        return username -> userDetailService.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 

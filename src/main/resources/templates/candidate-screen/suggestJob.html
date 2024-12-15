@@ -66,8 +66,8 @@
     <div th:each="job : ${suggestedJobs}" class="card bg-white rounded-lg shadow-md p-6">
       <h4 class="text-xl font-semibold text-teal-600 mb-4" th:text="${job.jobName}">Tên Công Việc</h4>
       <p class="text-gray-600 mb-4" th:text="${job.jobDesc}">Mô Tả Công Việc</p>
-      <form th:action="@{/jobs/jobApply/{jobId}/apply(jobId=${job.id})}" method="post">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+      <form th:action="@{/candidates/jobs/{jobId}/apply(jobId=${job.id})}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
         <button type="submit" class="btn-primary px-4 py-2 rounded-lg w-full font-semibold">
           Ứng Tuyển
         </button>

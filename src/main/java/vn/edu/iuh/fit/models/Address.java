@@ -34,8 +34,6 @@ public class Address {
     // Quan hệ với Candidate
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Candidate candidate;
-    public Address(String s, String quangTrung, String hcm, String s1, CountryCode countryCode) {
-    }
 
     public void setCountry(CountryCode country) {
         //chuyen country code sang string

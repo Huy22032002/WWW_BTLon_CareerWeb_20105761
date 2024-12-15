@@ -15,10 +15,6 @@ public class SkillService {
     @Autowired
     private SkillRepository skillRepository;
 
-    public List<Skill> findAll() {
-        return skillRepository.findAll();
-
-    }
     public Skill save(Skill skill) {
         return skillRepository.save(skill);
     }

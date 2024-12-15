@@ -12,11 +12,7 @@ import java.util.List;
 public class CandidateService {
     @Autowired
     private CandidateRepository candidateRepository;
-    @Autowired
-    private CandidateSkillRepository candidateSkillRepository;
 
-    @Autowired
-    private JobRepository jobRepository;
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
@@ -25,17 +21,6 @@ public class CandidateService {
 
     public List<Candidate> findAll() {
         return candidateRepository.findAll();
-    }
-
-    public Candidate registerCandidate(Candidate candidate) {
-        return candidateRepository.save(candidate);
-    }
-
-    public void updateAddress(Long candidateId, Address address) {
-        Candidate candidate = candidateRepository.findById(candidateId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy ứng viên"));
-        address.setCandidate(candidate);
-        addressRepository.save(address);
     }
 
     public Candidate save(Candidate candidate) {

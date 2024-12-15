@@ -16,7 +16,7 @@ public class SkillLevel {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Enumerated(EnumType.STRING) // Lưu Enum dưới dạng chuỗi
+    @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false)
     private SkillLevelType name;
 

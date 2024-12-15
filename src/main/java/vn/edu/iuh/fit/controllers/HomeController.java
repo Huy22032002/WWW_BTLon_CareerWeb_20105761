@@ -28,14 +28,14 @@ public class HomeController {
     private JobApplicationService jobApplicationService;
 
     @GetMapping({"/", "/home"})
-    public String showIndexPage(Model model) {
+    public String home(Model model) {
         List<Company> companies = companyService.findAll();
         List<Job> jobs = jobService.findAll();
 
         model.addAttribute("companies", companies);
         model.addAttribute("jobs", jobs);
 
-        return "index";
+        return "home";
     }
 
     @GetMapping("/jobs/{jobId}")
@@ -56,19 +56,7 @@ public class HomeController {
         model.addAttribute("company", company);
         model.addAttribute("jobSkills", jobSkills);
 
-        return "jobs/details";
-    }
-
-    @GetMapping("/home/check")
-    public String home(Principal principal) {
-        Account account = accountRepository.findByUsername(principal.getName())
-                .orElseThrow(() -> new RuntimeException("Account not found"));
-
-        if (account.getCandidate() == null) {
-            return "redirect:/candidates/register/full-info?accountId=" + account.getId();
-        }
-
-        return "index";
+        return "job-screen/jobDetail";
     }
 
     @PostMapping("/jobs/{jobId}/apply")

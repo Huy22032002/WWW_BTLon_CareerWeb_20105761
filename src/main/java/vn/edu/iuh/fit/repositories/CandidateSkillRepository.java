@@ -10,9 +10,7 @@ import vn.edu.iuh.fit.models.Skill;
 import java.util.List;
 
 public interface CandidateSkillRepository extends JpaRepository<CandidateSkill, CandidateSkillId> {
-    @Query("SELECT cs FROM CandidateSkill cs WHERE cs.candidate.id = :canId")
-    List<CandidateSkill> findByCanId(@Param("canId") Long canId);
-    List<CandidateSkill> findByCandidateId(Long candidateId);
+
     @Query("SELECT cs.skill FROM CandidateSkill cs WHERE cs.candidate.id = :candidateId")
     List<Skill> findSkillsByCandidateId(Long candidateId);
 }

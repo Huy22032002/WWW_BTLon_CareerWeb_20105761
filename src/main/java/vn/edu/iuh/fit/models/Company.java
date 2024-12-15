@@ -37,7 +37,4 @@ public class Company {
     @OneToOne(mappedBy = "company")
     private Account account;
 
-    public Company(Long id) {
-        this.id = id;
-    }
 }

@@ -16,18 +16,11 @@ public class AccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Account saveAccount(Account account) {
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        return accountRepository.save(account);
-    }
 
     public Optional<Account> findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
 
-    public Optional<Account> findById(Long accountId) {
-        return accountRepository.findById(accountId);
-    }
 
     public void save(Account account) {
         accountRepository.save(account);

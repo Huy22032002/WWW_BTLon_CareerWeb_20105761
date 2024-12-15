@@ -29,8 +29,7 @@ public class EmailLog {
     private LocalDateTime sentAt;
 
     @Column(name = "status", nullable = false)
-    private String status; // SUCCESS hoặc FAILURE
-
+    private String status; 
     @Column(name = "message", length = 1000)
-    private String message; // Chi tiết lỗi nếu có
+    private String message;
 }

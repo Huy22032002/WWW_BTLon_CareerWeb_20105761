@@ -8,6 +8,5 @@ import vn.edu.iuh.fit.models.Role;
 import java.util.Optional;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-  @Query("SELECT r FROM Role r WHERE r.roleName = :roleName")
-  Optional<Role> findByRoleName(@Param("roleName") String roleName);
+
 }

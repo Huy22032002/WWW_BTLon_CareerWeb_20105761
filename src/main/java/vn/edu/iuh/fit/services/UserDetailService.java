@@ -10,11 +10,11 @@ import vn.edu.iuh.fit.repositories.AccountRepository;
 
 import java.util.Optional;
 @Service
-public class UserService implements UserDetailsService {
+public class UserDetailService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
 
-    public UserService(AccountRepository accountRepository) {
+    public UserDetailService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 

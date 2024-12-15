@@ -24,7 +24,7 @@ public class CandidateSkill {
 
 
 
-    @Enumerated(EnumType.STRING) // Stores enum as String in the database
+    @Enumerated(EnumType.STRING)
     private SkillType type;
     @MapsId("skillId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

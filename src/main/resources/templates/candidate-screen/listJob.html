@@ -69,7 +69,7 @@
             <td th:text="${job.jobDesc}"></td>
             <td th:text="${job.company.compName}"></td>
             <td>
-                <a th:href="@{/jobs/{jobId}(jobId=${job.id})}" class="btn btn-view btn-sm">Xem chi tiết</a>
+                <a th:href="@{/candidates/job-screen/{jobId}(jobId=${job.id})}" class="btn btn-view btn-sm">Xem chi tiết</a>
             </td>
         </tr>
         </tbody>
