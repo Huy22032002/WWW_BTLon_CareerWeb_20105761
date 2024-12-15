@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đề Xuất Công Việc</title>
+  <!-- Link đến Bootstrap hoặc CSS của bạn -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Phần Header hoặc Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/candidates/dashboard">Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/logout">Đăng xuất</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Phần nội dung chính -->
+<div class="container mt-5">
+  <h1 class="text-center">Đề Xuất Công Việc</h1>
+  <p class="text-center">Xem danh sách công việc phù hợp cho bạn.</p>
+
+  <div class="row">
+    <!-- Lặp qua danh sách công việc gợi ý và hiển thị -->
+    <div class="col-md-4" th:each="job : ${suggestedJobs}">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4 class="card-title" th:text="${job.jobName}">Job Name</h4>
+        </div>
+        <div class="card-body">
+          <p class="card-text" th:text="${job.jobDesc}">Job Description</p>
+        </div>
+        <div class="card-footer">
+          <form th:action="@{/jobs/jobApply/{jobId}/apply(jobId=${job.id})}" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-primary">Ứng tuyển</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nếu không có công việc gợi ý -->
+  <div class="alert alert-info" th:if="${#lists.isEmpty(suggestedJobs)}">
+    Không có công việc gợi ý. Vui lòng thử lại sau.
+  </div>
+
+  <a href="/candidates/dashboard" class="btn btn-secondary">Quay lại Dashboard</a>
+</div>
+
+<!-- Link đến JS và Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

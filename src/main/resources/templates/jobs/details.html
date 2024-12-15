@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Công Việc</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Header -->
+<header class="bg-teal-600 text-white py-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-6">
+        <a href="/" class="text-2xl font-bold">JobFinder</a>
+        <nav>
+            <a href="/" class="text-white hover:underline px-4">Trang Chủ</a>
+            <a href="/login" class="text-white hover:underline px-4">Đăng Nhập</a>
+            <a href="/register" class="text-white hover:underline px-4">Đăng Ký</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-6 py-10">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <!-- Job Title -->
+        <div class="mb-6 text-center">
+            <h1 class="text-4xl font-bold text-teal-600" th:text="${job.jobName}">Tên Công Việc</h1>
+            <p class="text-gray-500 mt-2" th:text="'Đăng bởi: ' + ${company.compName}">Tên Công Ty</p>
+        </div>
+
+        <!-- Job Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Job Description -->
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Mô Tả Công Việc</h2>
+                <p class="text-gray-600 leading-relaxed" th:text="${job.jobDesc}">Mô tả công việc đầy đủ...</p>
+            </div>
+
+            <!-- Company Details -->
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Thông Tin Công Ty</h2>
+                <ul class="text-gray-600 space-y-2">
+                    <li>
+                        <span class="font-semibold">Công Ty:</span>
+                        <span th:text="${company.compName}">Tên công ty</span>
+                    </li>
+                    <li>
+                        <span class="font-semibold">Email:</span>
+                        <span th:text="${company.email}">Email công ty</span>
+                    </li>
+                    <li>
+                        <span class="font-semibold">Số Điện Thoại:</span>
+                        <span th:text="${company.phone}">Số điện thoại công ty</span>
+                    </li>
+                    <li>
+                        <span class="font-semibold">Địa Chỉ:</span>
+                        <span th:text="${company.address.street} + ', ' + ${company.address.city}">Địa chỉ công ty</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Kỹ Năng Yêu Cầu</h2>
+            <ul class="list-disc list-inside text-gray-600">
+                <li th:each="jobSkill : ${jobSkills}" th:text="${jobSkill.skill.skillName}">Tên kỹ năng</li>
+            </ul>
+        </div>
+
+        <!-- Apply Button -->
+        <div class="mt-10 text-center">
+            <form th:action="@{/candidates/jobs/{jobId}/apply(jobId=${job.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" >
+                    Ứng Tuyển Ngay
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto text-center">
+        <p class="text-sm">© 2024 JobFinder. Tất cả các quyền được bảo lưu.</p>
+    </div>
+</footer>
+
+</body>
+</html>

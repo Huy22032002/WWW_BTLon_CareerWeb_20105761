@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center min-h-screen text-white">
+<div class="bg-white text-gray-800 p-8 rounded-lg shadow-2xl max-w-md text-center">
+    <!-- Icon -->
+    <div class="flex justify-center mb-4">
+        <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 12h.01M16.293 9.707a1 1 0 010-1.414l4.586-4.586a1 1 0 011.414 0l4.586 4.586a1 1 0 010 1.414L18.707 14.293a1 1 0 01-1.414 0L13.293 9.707a1 1 0 010-1.414z"></path>
+        </svg>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-red-600 mb-4">Access Denied</h1>
+
+    <!-- Message -->
+    <p class="text-lg text-gray-700 mb-6">Bạn không có quyền truy cập vào trang này. Vui lòng kiểm tra lại tài khoản đăng nhập.</p>
+
+    <!-- Buttons -->
+    <div class="space-y-3">
+        <a href="@{/home}" class="block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-300">
+            Về Trang Chủ
+        </a>
+        <a href="@{/logout}" class="block bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-300">
+            Đăng Xuất
+        </a>
+    </div>
+</div>
+</body>
+</html>
